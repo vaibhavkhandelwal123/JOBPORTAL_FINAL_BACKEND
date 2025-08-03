@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs (common with JWT)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // **Crucial: Enable CORS and link to the source bean**
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/users/register", "/users/verifyOtp/**", "/users/sendOtp/**").permitAll() // Publicly accessible endpoints
+                        .requestMatchers("/auth/login", "/users/register", "/users/verifyOtp/**", "/users/sendOtp/**","/users/forgot").permitAll() // Publicly accessible endpoints
                         .anyRequest().authenticated() // All other requests require authentication
                 )
                 .exceptionHandling(ex -> ex
