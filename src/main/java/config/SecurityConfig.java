@@ -82,7 +82,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         // Allow your Vite.js frontend origin. If it runs on a different port (e.g., 3000), add that too.
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000","https://jobportal-final-frontend.onrender.com"));
         config.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow all common methods, including OPTIONS for preflight
         config.setAllowCredentials(true); // Important if you're sending cookies or authorization headers
