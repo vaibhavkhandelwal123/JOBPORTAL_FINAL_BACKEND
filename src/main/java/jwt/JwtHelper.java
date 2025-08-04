@@ -17,7 +17,7 @@ import java.util.function.Function;
 public class JwtHelper {
 
 
-    private final String SECRET_KEY = "my_super_secret_key_that_should_be_long_enough";
+    private final String SECRET_KEY = "1211njbhfhvgt5uyfrdg45655mjjbhvgh548hvfcdxd";
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
     private SecretKey getSigningKey() {
