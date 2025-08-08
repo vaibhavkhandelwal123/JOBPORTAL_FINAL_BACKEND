@@ -2,6 +2,7 @@ package api;
 
 import dto.JobDTO;
 import dto.ProfileDTO;
+import dto.ResumeDTO;
 import exception.JobPortalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,13 @@ public class ProfileAPI {
     @GetMapping("/getAll")
     public ResponseEntity<List<ProfileDTO>>getAllProfiles() throws JobPortalException{
         return new ResponseEntity<>(profileService.getAllProfiles(), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/resume")
+    public ResponseEntity<String>uploadResume(@RequestBody ResumeDTO resumeDTO)throws JobPortalException{
+        profileService.resume(resumeDTO);
+        return ResponseEntity.ok("Resume uploded Succesfully");
     }
 
 }
