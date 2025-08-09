@@ -44,4 +44,10 @@ public class ProfileAPI {
         return ResponseEntity.ok("Resume uploded Succesfully");
     }
 
+    @GetMapping("/resume/{id}")
+    public ResponseEntity<ResumeDTO>getResume(@PathVariable Long id) throws JobPortalException{
+        return new ResponseEntity<>(profileService.getResume(id), HttpStatus.OK);
+    }
+
+
 }

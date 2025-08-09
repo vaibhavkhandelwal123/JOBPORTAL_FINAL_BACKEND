@@ -69,4 +69,13 @@ public class ProfileServiceImplementation implements ProfileService {
     public List<ProfileDTO> getAllProfiles() throws JobPortalException {
         return profileRepository.findAll().stream().map((x)->x.toDTO()).toList();
     }
+
+    @Override
+    public ResumeDTO getResume(Long id) throws JobPortalException {
+        Optional<Resume> existingResumeOpt = resumeRepository.findById(id);
+        if (existingResumeOpt.isEmpty()) {
+            throw new JobPortalException("Not Found !!!");
+        }
+        return existingResumeOpt.get().toDTO();
+    }
 }

@@ -13,4 +13,6 @@ public interface ProfileService {
 public void resume(ResumeDTO resumeDTO) throws JobPortalException;
 
     public List<ProfileDTO> getAllProfiles() throws JobPortalException;
+
+    public ResumeDTO getResume(Long id) throws JobPortalException;
 }
