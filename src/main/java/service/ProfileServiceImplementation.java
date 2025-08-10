@@ -13,6 +13,7 @@ import repository.ResumeRepository;
 import utility.Utilities;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,21 +58,27 @@ public class ProfileServiceImplementation implements ProfileService {
 
             if (existingResumeOpt.isPresent()) {
                 Resume existingResume = existingResumeOpt.get();
-                existingResume.setResume(resumeDTO.getResume().getBytes());
+                existingResume.setResume(
+                        resumeDTO.getResume() != null
+                                ? Base64.getDecoder().decode(resumeDTO.getResume())
+                                : null
+                );
                 resumeRepository.save(existingResume);
             } else {
                 resumeRepository.save(resumeDTO.toEntity());
             }
-            NotificationDTO noti= new NotificationDTO();
+
+            NotificationDTO noti = new NotificationDTO();
             noti.setUserId(resumeDTO.getId());
             noti.setMessage("Resume Uploaded Successfully");
             noti.setAction("Resume Uploaded");
             notificationService.sendNotification(noti);
+
         } catch (Exception e) {
             throw new JobPortalException("Error saving/updating resume");
         }
-
     }
+
 
 
     @Override
