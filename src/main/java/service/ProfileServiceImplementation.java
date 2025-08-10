@@ -1,5 +1,6 @@
 package service;
 
+import dto.NotificationDTO;
 import dto.ProfileDTO;
 import dto.ResumeDTO;
 import entity.Profile;
@@ -21,6 +22,8 @@ public class ProfileServiceImplementation implements ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
+    @Autowired
+    private NotificationService notificationService;
     @Autowired
     private ResumeRepository resumeRepository;
     @Override
@@ -59,9 +62,15 @@ public class ProfileServiceImplementation implements ProfileService {
             } else {
                 resumeRepository.save(resumeDTO.toEntity());
             }
+            NotificationDTO noti= new NotificationDTO();
+            noti.setUserId(resumeDTO.getId());
+            noti.setMessage("Resume Uploaded Successfully");
+            noti.setAction("Resume Uploaded");
+            notificationService.sendNotification(noti);
         } catch (Exception e) {
             throw new JobPortalException("Error saving/updating resume");
         }
+
     }
 
 
