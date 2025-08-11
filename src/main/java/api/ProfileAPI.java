@@ -44,6 +44,12 @@ public class ProfileAPI {
         return ResponseEntity.ok("Resume uploded Succesfully");
     }
 
+    @DeleteMapping("/resume/{id}")
+    public ResponseEntity<String>deleteResume(@PathVariable Long id)throws JobPortalException{
+        profileService.deleteResume(id);
+        return ResponseEntity.ok("Resume Deleted Successfully");
+    }
+
     @GetMapping("/resume/{id}")
     public ResponseEntity<ResumeDTO>getResume(@PathVariable Long id) throws JobPortalException{
         return new ResponseEntity<>(profileService.getResume(id), HttpStatus.OK);

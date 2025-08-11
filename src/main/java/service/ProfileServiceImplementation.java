@@ -95,4 +95,13 @@ public class ProfileServiceImplementation implements ProfileService {
         }
         return existingResumeOpt.get().toDTO();
     }
+
+    @Override
+    public void deleteResume(Long id) throws JobPortalException {
+        Optional<Resume> existingResumeOpt = resumeRepository.findById(id);
+        if (existingResumeOpt.isEmpty()) {
+            throw new JobPortalException("Not Found !!!");
+        }
+        resumeRepository.deleteById(id);
+    }
 }
