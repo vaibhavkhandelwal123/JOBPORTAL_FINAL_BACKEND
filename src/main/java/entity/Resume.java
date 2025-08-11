@@ -16,10 +16,11 @@ import java.util.Base64;
 public class Resume {
     @Id
     private Long id;
+    private String name;
     private byte[] resume;
 
     public ResumeDTO toDTO(){
-        return new ResumeDTO(this.id,this.resume!=null? Base64.getEncoder().encodeToString(this.resume):null);
+        return new ResumeDTO(this.id,this.name,this.resume!=null? Base64.getEncoder().encodeToString(this.resume):null);
     }
 }
 

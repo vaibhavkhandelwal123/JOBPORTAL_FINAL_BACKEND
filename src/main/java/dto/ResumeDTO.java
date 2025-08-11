@@ -12,8 +12,9 @@ import java.util.Base64;
 @NoArgsConstructor
 public class ResumeDTO {
     private Long id;
+    private String name;
     private String resume;
     public Resume toEntity(){
-        return new Resume(this.id,this.resume!=null? Base64.getDecoder().decode(this.resume):null);
+        return new Resume(this.id,this.name,this.resume!=null? Base64.getDecoder().decode(this.resume):null);
     }
 }

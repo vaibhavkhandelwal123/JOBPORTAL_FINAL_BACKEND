@@ -58,6 +58,7 @@ public class ProfileServiceImplementation implements ProfileService {
 
             if (existingResumeOpt.isPresent()) {
                 Resume existingResume = existingResumeOpt.get();
+                existingResume.setName(resumeDTO.getName());
                 existingResume.setResume(
                         resumeDTO.getResume() != null
                                 ? Base64.getDecoder().decode(resumeDTO.getResume())
