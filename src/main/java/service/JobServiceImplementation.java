@@ -2,17 +2,19 @@ package service;
 
 import dto.*;
 import entity.Applicant;
+import entity.Company;
 import entity.Job;
-import entity.Notification;
 import exception.JobPortalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import repository.CompanyRepository;
 import repository.JobRepository;
 import utility.Utilities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("jobService")
 public class JobServiceImplementation implements JobService {
@@ -20,12 +22,17 @@ public class JobServiceImplementation implements JobService {
     private JobRepository jobRepository;
 
     @Autowired
+    private CompanyRepository companyRepository;
+    @Autowired
     private NotificationService notificationService;
     @Override
     public JobDTO postJob(JobDTO jobDTO) throws Exception {
         if(jobDTO.getId()==0){
             jobDTO.setId(Utilities.getNextSequence("jobs"));
             jobDTO.setPostTime(LocalDateTime.now());
+            Optional<Company> company = Optional.ofNullable(companyRepository.findIdByName(jobDTO.getCompany()));
+            Company com = company.get();
+            jobDTO.setPostedBy(com.getId());
             NotificationDTO notiDTO = new NotificationDTO();
             notiDTO.setAction("Job Posted Successfully");
             notiDTO.setMessage("Job Posted Successfully for "+jobDTO.getJobTitle()+" at "+jobDTO.getCompany());

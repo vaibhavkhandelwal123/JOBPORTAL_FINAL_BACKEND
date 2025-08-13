@@ -1,23 +1,17 @@
 package service;
 
-import dto.LoginDTO;
-import dto.NotificationDTO;
-import dto.ResponseDTO;
-import dto.UserDTO;
+import dto.*;
 import entity.OTP;
 import entity.User;
 import exception.JobPortalException;
 import exception.UserAlreadyExistsException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import repository.NotificationRepository;
 import repository.OTPRespository;
 import repository.UserRepository;
 import utility.Data;
@@ -25,7 +19,6 @@ import utility.Utilities;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Service
@@ -44,6 +37,8 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private ProfileService profileService;
     @Autowired
+    private CompanyService companyService;
+    @Autowired
     public UserServiceImplementation(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -54,7 +49,11 @@ public class UserServiceImplementation implements UserService {
         if (userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException("User already exists with email: " + userDTO.getEmail());
         }
-        userDTO.setProfileId(profileService.createProfile(userDTO.getEmail()));
+        if(userDTO.getAccountType()== AccountType.APPLICANT) {
+            userDTO.setProfileId(profileService.createProfile(userDTO.getEmail()));
+        }else {
+            userDTO.setProfileId(companyService.createCompanyProfile(userDTO));
+        }
         userDTO.setId(Utilities.getNextSequence("users"));
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userDTO.toEntity();
