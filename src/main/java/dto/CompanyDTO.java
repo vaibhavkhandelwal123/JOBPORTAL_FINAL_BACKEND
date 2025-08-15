@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Base64;
 import java.util.List;
 
 @Data
@@ -14,6 +15,7 @@ public class CompanyDTO {
     private Long id;
     private String name;
     private String email;
+    private String pictures;
     private String overview;
     private String industry;
     private String website;
@@ -22,7 +24,7 @@ public class CompanyDTO {
     private List<String> specialties;
 
     public Company toEntity(){
-        return new Company(this.id,this.name,this.email,this.overview,this.industry,this.website,this.size,this.headQuarters,this.specialties);
+        return new Company(this.id,this.name,this.email,this.pictures!=null? Base64.getDecoder().decode(this.pictures):null,this.overview,this.industry,this.website,this.size,this.headQuarters,this.specialties);
     }
 }
 

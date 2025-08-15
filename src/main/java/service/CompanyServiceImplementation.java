@@ -10,6 +10,7 @@ import repository.CompanyRepository;
 import utility.Utilities;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,9 @@ public class CompanyServiceImplementation implements CompanyService{
         if(company.isPresent()){
             Company currCompany = company.get();
             currCompany.setName(companyDTO.getName());
+            currCompany.setPictures(companyDTO.getPictures()!= null
+                    ? Base64.getDecoder().decode(companyDTO.getPictures())
+                    : null);
             currCompany.setIndustry(companyDTO.getIndustry());
             currCompany.setHeadQuarters(companyDTO.getHeadQuarters());
             currCompany.setSpecialties(companyDTO.getSpecialties());

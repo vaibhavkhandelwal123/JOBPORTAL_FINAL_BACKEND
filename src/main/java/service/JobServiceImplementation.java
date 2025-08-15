@@ -33,6 +33,7 @@ public class JobServiceImplementation implements JobService {
             Optional<Company> company = Optional.ofNullable(companyRepository.findIdByName(jobDTO.getCompany()));
             Company com = company.get();
             jobDTO.setPostedBy(com.getId());
+            jobDTO.setJobStatus(JobStatus.ACTIVE);
             NotificationDTO notiDTO = new NotificationDTO();
             notiDTO.setAction("Job Posted Successfully");
             notiDTO.setMessage("Job Posted Successfully for "+jobDTO.getJobTitle()+" at "+jobDTO.getCompany());
