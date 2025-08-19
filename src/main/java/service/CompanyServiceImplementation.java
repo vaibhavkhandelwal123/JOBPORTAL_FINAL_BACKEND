@@ -47,6 +47,7 @@ public class CompanyServiceImplementation implements CompanyService{
             currCompany.setIndustry(companyDTO.getIndustry());
             currCompany.setHeadQuarters(companyDTO.getHeadQuarters());
             currCompany.setSpecialties(companyDTO.getSpecialties());
+            currCompany.setWebsite(companyDTO.getWebsite());
             currCompany.setSize(companyDTO.getSize());
             currCompany.setOverview(companyDTO.getOverview());
             currCompany.setIndustry(companyDTO.getIndustry());
